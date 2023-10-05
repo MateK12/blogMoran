@@ -1,4 +1,8 @@
 # BlogDeNoticias
+
+ssh ssh6@192.168.44.117
+lmet1098
+
 Nodejs FES Template
 Environment vars
 
