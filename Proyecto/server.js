@@ -37,8 +37,8 @@ app.get('/', (req, res)=> {
   res.sendFile(index);
 });
 
-app.get('/noticias', (req, res)=>{
-  const noticias = path.resolve(__dirname, '../Proyecto', './public', './page', 'noticias.html');
+app.get('/noticias', (req, res)=> {
+  const noticias = path.resolve(__dirname, '../Proyecto', './public', './page', 'noticias.html' );
   res.sendFile(noticias);  
 });
 
