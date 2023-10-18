@@ -11,16 +11,11 @@ const cors = require('cors');
 const { MongoClient } = require('mongodb');
 const URL = "mongodb://root:example@192.168.44.117:27017/"; //url de coneccion a Mongodb
 
-
-
 const cliente = new MongoClient(URL);
 
 const dbnombre = "users";
 const coleccion = "Usuarios";
 let DB_coleccion = cliente.db(dbnombre).collection(coleccion); //node_prueba.Usuarios
-
-
-
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -37,21 +32,16 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/server"));
 app.use(express.json());
 
-app.get('*', (req, res)=> {
+app.get('/', (req, res)=> {
   const index = path.resolve(__dirname, '../Proyecto', './public', './page', 'index.html' );
   res.sendFile(index);
 });
 
-// const mongoose = async () => {
-//     try {
-//         mongoose.set('strictQuery', false)
-//         mongoose.connect(process.env.MONGO_URI) 
-//         console.log('Mongo connected');
-//     } catch(error) {
-//         console.log(error);
-//         process.exit();
-//     }
-// }
+app.get('/noticias', (req, res)=>{
+  const noticias = path.resolve(__dirname, '../Proyecto', './public', './page', 'noticias.html');
+  res.sendFile(noticias);  
+});
+
 app.post('/crearCuenta', async (req, res)=>{
   console.log(req.body)
   let insertUser = await DB_coleccion.insertOne(req.body)
