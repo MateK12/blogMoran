@@ -38,6 +38,10 @@ app.get('/', (req, res)=> {
 });
 
 app.get('/noticias', (req, res)=> {
+  returnData().then(result => {
+    console.log(result); //This logs undefined
+    res.send(result); //This sends undefined
+  });
   const noticias = path.resolve(__dirname, '../Proyecto' ,'./public', './page', 'noticias.html' );
   res.sendFile(noticias);  
 });
@@ -50,3 +54,29 @@ app.post('/crearCuenta', async (req, res)=>{
 app.listen(process.env.PORT, ()=> {
     console.log("Escuchando en http://127.0.0.1:4000");
 })
+
+async function returnData() {
+  const uri = "mongodb://root:example@192.168.44.117:27017/";
+
+  //Connect to the database and return all documents in the collection
+  const client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+  });
+  try {
+      await client.connect();
+      const database = client.db('users');
+      const collection = database.collection('usuarios');
+      const query = {};
+      const options = {};
+      const cursor = collection.find(query, options);
+      await cursor.toArray().then((docs) => {
+          console.log(docs); // <- This works and logs all the data to console 
+          return docs;
+      });
+  } catch (e) {
+      console.error(e);
+  } finally {
+      await client.close();
+  }
+}
