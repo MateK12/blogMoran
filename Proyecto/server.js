@@ -2,6 +2,7 @@ require('./server/config/config');
 
 const path = require('path');
 const express = require('express')
+const handlebars = require('express-handlebars');
 const app = express()
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -34,7 +35,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/server"));
 app.use(express.json());
 
-app.get('/', (req, res)=> {
+app.get('/index', (req, res)=> {
   const index = path.resolve(__dirname, '../Proyecto', './public', './page', 'index.html' );
   res.sendFile(index);
 });
@@ -74,7 +75,7 @@ async function returnData() {
       const cursor = collection.find(query, options);
       await cursor.toArray().then((docs) => {
           console.log(docs); // <- This works and logs all the data to console
-          res.render('listado', {title: "Listado", data: docs})
+          res.render('noticias', {title: "Blog", data: docs})
           return docs;
       });
   } catch (e) {
