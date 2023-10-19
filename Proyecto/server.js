@@ -41,12 +41,9 @@ app.get('/index', (req, res)=> {
 });
 
 app.get('/noticias', (req, res)=> {
-  returnData().then(result => {
-    console.log(result); //This logs undefined
-    res.send(result); //This sends undefined
-  });
+  returnData(res);
   const noticias = path.resolve(__dirname, '../Proyecto' ,'./public', './page', 'noticias.html' );
-  res.sendFile(noticias);  
+  //res.sendFile(noticias);  
 });
 
 app.post('/crearCuenta', async (req, res)=>{
