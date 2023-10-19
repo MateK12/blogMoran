@@ -1,5 +1,3 @@
-
-
 require('./server/config/config');
 
 const path = require('path');
@@ -26,6 +24,10 @@ app.use(bodyParser.json())
 app.use(express.json({ type: "*/*" }))
 
 app.use(cors())
+
+app.engine('handlebars', handlebars.engine());
+app.set("", __dirname+"/views");
+app.set("view engine", 'handlebars');
 
 // Configuracion global de rutas
 app.use(express.static(__dirname + "/public"));
@@ -71,7 +73,8 @@ async function returnData() {
       const options = {};
       const cursor = collection.find(query, options);
       await cursor.toArray().then((docs) => {
-          console.log(docs); // <- This works and logs all the data to console 
+          console.log(docs); // <- This works and logs all the data to console
+          res.render('listado', {title: "Listado", data: docs})
           return docs;
       });
   } catch (e) {
