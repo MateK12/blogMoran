@@ -35,15 +35,14 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/server"));
 app.use(express.json());
 
-app.get('/index', (req, res)=> {
+app.get('/', (req, res)=> {
   const index = path.resolve(__dirname, '../Proyecto', './public', './page', 'index.html' );
   res.sendFile(index);
 });
 
 app.get('/noticias', (req, res)=> {
-  returnData(res);
   const noticias = path.resolve(__dirname, '../Proyecto' ,'./public', './page', 'noticias.html' );
-  //res.sendFile(noticias);  
+  res.sendFile(noticias);  
 });
 
 app.post('/crearCuenta', async (req, res)=>{
